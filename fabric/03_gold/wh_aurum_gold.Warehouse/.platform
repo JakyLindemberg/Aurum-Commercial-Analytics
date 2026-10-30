@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Warehouse",
+    "displayName": "wh_aurum_gold",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "314f4b38-a05a-91ab-45f8-bd5ba8e6a204"
+  }
+}
