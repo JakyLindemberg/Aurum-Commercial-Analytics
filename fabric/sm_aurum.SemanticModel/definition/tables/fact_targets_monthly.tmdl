@@ -1,0 +1,65 @@
+table fact_targets_monthly
+	lineageTag: f895eb43-a458-4338-a245-0faba864d7ba
+	sourceLineageTag: [gold].[fact_targets_monthly]
+
+	column user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7c8e601f-5087-4976-b8e1-a03f4adb9b89
+		sourceLineageTag: user_id
+		summarizeBy: none
+		sourceColumn: user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: ddf614ea-317f-4994-af3b-0d306f6cc494
+		sourceLineageTag: month_date_key
+		summarizeBy: none
+		sourceColumn: month_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_target
+		dataType: double
+		lineageTag: 1139f6b6-e900-4f11-a846-61fc684dcf59
+		sourceLineageTag: monthly_target
+		summarizeBy: none
+		sourceColumn: monthly_target
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_partial_month
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9cef77b7-43f8-4896-a093-7612c48496b9
+		sourceLineageTag: is_partial_month
+		summarizeBy: none
+		sourceColumn: is_partial_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_orders
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 08ec4af5-720a-4d87-9cb8-521e18730dd8
+		sourceLineageTag: has_orders
+		summarizeBy: none
+		sourceColumn: has_orders
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_targets_monthly = entity
+		mode: directLake
+		source
+			entityName: fact_targets_monthly
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+

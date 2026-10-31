@@ -1,0 +1,71 @@
+table fact_order_items
+	lineageTag: a0005a77-7d20-428f-8c9d-6cec896bd413
+	sourceLineageTag: [gold].[fact_order_items]
+
+	column order_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ee3076b3-86bb-4664-a82e-0fd14b63f828
+		sourceLineageTag: order_id
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8179241a-6f32-4401-9175-848fe9ece7b7
+		sourceLineageTag: item_id
+		summarizeBy: none
+		sourceColumn: item_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: a49b6516-6599-41b9-bcf4-d42565cde4b0
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 088773c1-aa0d-45d7-b1c8-1a416ed55298
+		sourceLineageTag: user_id
+		summarizeBy: none
+		sourceColumn: user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column allocated_revenue_est
+		dataType: double
+		lineageTag: 88fb93b7-52b4-4498-aaa8-e9808b9fb9c7
+		sourceLineageTag: allocated_revenue_est
+		summarizeBy: sum
+		sourceColumn: allocated_revenue_est
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_order_items = entity
+		mode: directLake
+		source
+			entityName: fact_order_items
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+

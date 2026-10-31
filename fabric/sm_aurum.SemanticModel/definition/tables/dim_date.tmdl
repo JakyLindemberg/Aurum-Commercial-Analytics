@@ -1,0 +1,110 @@
+table dim_date
+	lineageTag: 23947b79-6edf-450c-a029-f689bb1ab6c0
+	sourceLineageTag: [gold].[dim_date]
+	dataCategory: Time
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4e7a117a-4a60-47af-a87a-3af75eac868e
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		isKey
+		formatString: General Date
+		lineageTag: 362a2ff0-3504-4edc-88d4-6867f20b7494
+		sourceLineageTag: date
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: b2aefdc8-bff7-491a-8fa9-3c0d256f4785
+		sourceLineageTag: year
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_num
+		dataType: int64
+		formatString: 0
+		lineageTag: 66bcd168-4c2a-4b3f-9c0e-a238c2f02da7
+		sourceLineageTag: month_num
+		summarizeBy: sum
+		sourceColumn: month_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 8e7dc731-ee67-4d45-bed0-d9ec3eb81f05
+		sourceLineageTag: month_name
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month_num
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_start
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d1855634-a507-4f72-a63a-78bb9d21d422
+		sourceLineageTag: month_start
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: string
+		lineageTag: ed4ef48c-cbdc-4b46-9a3d-eda608469654
+		sourceLineageTag: day_of_week
+		summarizeBy: none
+		sourceColumn: day_of_week
+		sortByColumn: weekday_num
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_num
+		dataType: int64
+		formatString: 0
+		lineageTag: bd485e06-7236-44a2-be74-a4d451070b42
+		sourceLineageTag: weekday_num
+		summarizeBy: sum
+		sourceColumn: weekday_num
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_partial_month
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5e3d2034-e6d9-4030-b8e9-2dce3412c01a
+		sourceLineageTag: is_partial_month
+		summarizeBy: none
+		sourceColumn: is_partial_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = entity
+		mode: directLake
+		source
+			entityName: dim_date
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+

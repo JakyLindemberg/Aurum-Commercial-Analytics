@@ -1,0 +1,29 @@
+relationship 5be0eb27-2ec0-ef8d-b04b-72bd24fbabb2
+	fromColumn: fact_orders.date_key
+	toColumn: dim_date.date_key
+
+relationship 232e4f53-661d-cefa-c2c9-7598dee27917
+	fromColumn: fact_orders.user_id
+	toColumn: dim_customer.user_id
+
+relationship 58d4713e-5c3a-0579-6143-4f306f978991
+	fromColumn: fact_order_items.date_key
+	toColumn: dim_date.date_key
+
+relationship d3d42f75-e0aa-e19d-78df-36b5554a7500
+	fromColumn: fact_order_items.user_id
+	toColumn: dim_customer.user_id
+
+relationship 884671fc-5dcb-0d49-f1ba-f7e272aa8e07
+	fromColumn: fact_order_items.item_id
+	toColumn: dim_product.item_id
+
+relationship 57710df9-4617-0d49-8473-a849b216a852
+	fromColumn: dim_date.date_key
+	toColumn: fact_targets_monthly.month_date_key
+
+relationship a95d0df4-9106-ec48-dce4-6037e81cce43
+	isActive: false
+	fromColumn: fact_targets_monthly.user_id
+	toColumn: dim_customer.user_id
+

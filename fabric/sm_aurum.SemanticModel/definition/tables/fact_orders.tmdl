@@ -1,0 +1,113 @@
+table fact_orders
+	lineageTag: a0bff073-8f66-48f8-bb4d-78fecce97ca4
+	sourceLineageTag: [gold].[fact_orders]
+
+	column order_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7c5c6884-7169-4f1a-8490-3979ce70002f
+		sourceLineageTag: order_id
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c701e845-fcfb-4d72-a80b-0432cd2025e5
+		sourceLineageTag: date_key
+		summarizeBy: none
+		sourceColumn: date_key
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 54626374-f348-48f6-8ebd-42675be239d5
+		sourceLineageTag: user_id
+		summarizeBy: none
+		sourceColumn: user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue
+		dataType: double
+		lineageTag: 1c2c72c3-a621-45df-808b-dd8ee59a9157
+		sourceLineageTag: revenue
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column item_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 76380f15-59b8-4f69-9930-a02b4ee119cf
+		sourceLineageTag: item_count
+		summarizeBy: sum
+		sourceColumn: item_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column basket_size
+		dataType: string
+		lineageTag: 656e8cc2-fec7-44c9-8271-207130ee8204
+		sourceLineageTag: basket_size
+		summarizeBy: none
+		sourceColumn: basket_size
+		sortByColumn: basket_size_order
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column basket_size_order
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a4f0ebf-746e-421a-b8f4-ba81a325d008
+		sourceLineageTag: basket_size_order
+		summarizeBy: sum
+		sourceColumn: basket_size_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_fulfilled
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f7df8ea4-ea18-4a03-adcd-45eaa4540aec
+		sourceLineageTag: is_fulfilled
+		summarizeBy: none
+		sourceColumn: is_fulfilled
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_outlier
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 23093b08-0897-4b2c-8df3-a3e1c9a6cbc9
+		sourceLineageTag: is_outlier
+		summarizeBy: none
+		sourceColumn: is_outlier
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_orders = entity
+		mode: directLake
+		source
+			entityName: fact_orders
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+

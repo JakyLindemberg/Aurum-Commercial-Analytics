@@ -1,0 +1,62 @@
+table dim_product
+	lineageTag: 8471f229-60ab-4f7e-8952-dd40514f2fe4
+	sourceLineageTag: [gold].[dim_product]
+
+	column item_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1cb4b58d-a969-4320-8989-75755439a968
+		sourceLineageTag: item_id
+		summarizeBy: none
+		sourceColumn: item_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 6d3113be-e94f-4a00-9e09-7c1d2556984e
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_label
+		dataType: string
+		lineageTag: ca48cd5d-cf95-46f9-a9b9-5e5a2dd753b8
+		sourceLineageTag: category_label
+		summarizeBy: none
+		sourceColumn: category_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_lines
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f1e05a0-8cb3-4b65-9f5b-9d04a2ec9d65
+		sourceLineageTag: order_lines
+		summarizeBy: none
+		sourceColumn: order_lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column lines_rank
+		dataType: int64
+		formatString: 0
+		lineageTag: e010b36d-7789-44c5-8cc9-c2bbedc50cd7
+		sourceLineageTag: lines_rank
+		summarizeBy: none
+		sourceColumn: lines_rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+

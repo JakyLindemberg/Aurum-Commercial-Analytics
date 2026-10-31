@@ -1,0 +1,33 @@
+table param_view_mode
+	lineageTag: 1b146839-5dc9-468f-862c-f4748acea145
+	sourceLineageTag: [gold].[param_view_mode]
+
+	column mode_order
+		dataType: int64
+		formatString: 0
+		lineageTag: f91f0e33-dc84-49e2-8d32-e72ba16e60ef
+		sourceLineageTag: mode_order
+		summarizeBy: sum
+		sourceColumn: mode_order
+
+		annotation SummarizationSetBy = Automatic
+
+	column mode_name
+		dataType: string
+		lineageTag: bb237034-3642-483a-93d5-24a35e00f7a4
+		sourceLineageTag: mode_name
+		summarizeBy: none
+		sourceColumn: mode_name
+		sortByColumn: mode_order
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition param_view_mode = entity
+		mode: directLake
+		source
+			entityName: param_view_mode
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+

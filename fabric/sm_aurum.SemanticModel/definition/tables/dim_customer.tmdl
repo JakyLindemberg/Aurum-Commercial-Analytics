@@ -1,0 +1,60 @@
+table dim_customer
+	lineageTag: ac44f3cf-99f8-4f88-8c8c-286584679454
+	sourceLineageTag: [gold].[dim_customer]
+
+	column user_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 41a64751-f51b-40e9-a1ee-d2e1d412683a
+		sourceLineageTag: user_id
+		summarizeBy: none
+		sourceColumn: user_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 59461b92-7f7e-4fd6-b8ae-fec161e89551
+		sourceLineageTag: segment
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: ef7f3442-4d91-4b15-8e33-5646a1cc9ca4
+		sourceLineageTag: city
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: ec010582-d867-4964-84fc-f2f61d25989b
+		sourceLineageTag: state
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_label
+		dataType: string
+		lineageTag: 9acbeedd-2ab4-4d43-8110-65c63332b714
+		sourceLineageTag: customer_label
+		summarizeBy: none
+		sourceColumn: customer_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: gold
+			expressionSource: 'DirectLake - wh_aurum_gold'
+
