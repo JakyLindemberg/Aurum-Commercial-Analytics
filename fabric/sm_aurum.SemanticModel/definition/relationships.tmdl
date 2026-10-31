@@ -19,11 +19,10 @@ relationship 884671fc-5dcb-0d49-f1ba-f7e272aa8e07
 	toColumn: dim_product.item_id
 
 relationship 57710df9-4617-0d49-8473-a849b216a852
-	fromColumn: dim_date.date_key
-	toColumn: fact_targets_monthly.month_date_key
+	fromColumn: fact_targets_monthly.month_date_key
+	toColumn: dim_date.date_key
 
 relationship a95d0df4-9106-ec48-dce4-6037e81cce43
-	isActive: false
 	fromColumn: fact_targets_monthly.user_id
 	toColumn: dim_customer.user_id
 

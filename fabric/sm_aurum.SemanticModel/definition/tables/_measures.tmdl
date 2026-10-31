@@ -2,10 +2,10 @@ table _measures
 	lineageTag: 15676c15-a4c7-4950-9825-87e7dc051208
 
 	measure Revenue = SUM ( fact_orders[revenue] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 01. Core
 		lineageTag: 9a5cec6b-9136-4c42-ad88-a318b1214521
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure Orders = COUNTROWS ( fact_orders )
 		formatString: 0
@@ -18,16 +18,16 @@ table _measures
 		lineageTag: 01ba4eee-b7b3-487d-89bf-29fe7f29847d
 
 	measure 'Average Ticket' = DIVIDE ( [Revenue], [Fulfilled Orders] )
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
 		displayFolder: 01. Core
 		lineageTag: d6e6a226-9e7f-407d-bc8d-01f236f4dc89
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Revenue excl. Top Order' = CALCULATE ( [Revenue], fact_orders[is_outlier] = FALSE () )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 01. Core
 		lineageTag: e487bf98-a45c-4bfc-b4f4-dc86c9680bd5
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Active Customers' = DISTINCTCOUNT ( fact_orders[user_id] )
 		formatString: 0
@@ -35,37 +35,37 @@ table _measures
 		lineageTag: 3421529c-852c-431e-8122-155afeea3b6c
 
 	measure 'Revenue PM' = CALCULATE ( [Revenue], DATEADD ( dim_date[date], -1, MONTH ) )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 02. Time
 		lineageTag: 7d3d42b4-5a03-492c-9405-f5c2b40f26f5
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'MoM %' =
 			
 			VAR prev = [Revenue PM]
 			RETURN IF ( NOT ISBLANK ( prev ), DIVIDE ( [Revenue] - prev, prev ) )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 02. Time
 		lineageTag: db9c9e0e-90db-424c-9a5f-acc8f4a06302
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Revenue YTD' = TOTALYTD ( [Revenue], dim_date[date] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 02. Time
 		lineageTag: ecdcc7c4-209a-407e-bad3-018451850bad
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Revenue YTD excl. Top Order' = TOTALYTD ( [Revenue excl. Top Order], dim_date[date] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 02. Time
 		lineageTag: 5e698f0c-2d0c-4022-993c-b3720b51ab82
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '% of Period' = DIVIDE ( [Revenue], CALCULATE ( [Revenue], ALLSELECTED ( dim_date ) ) )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 02. Time
 		lineageTag: 48922652-605b-4f5f-a34f-35e4847bce9d
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Revenue (view)' = ```
 			
@@ -76,22 +76,22 @@ table _measures
 			)
 			
 			```
+		formatStringDefinition = IF ( SELECTEDVALUE ( param_view_mode[mode_name] ) = "% of period", "0.0%", """R$""#,0" )
 		displayFolder: 02. Time
 		lineageTag: 6c5feaa0-9c44-4ca2-8d13-e3fd1f01f6ef
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Top Order Value' = MAX ( fact_orders[revenue] )
+		formatString: "R$"#,0.00;-"R$"#,0.00;"R$"#,0.00
 		displayFolder: 02. Time
 		lineageTag: 9c1ca4ee-89e4-490d-a3e7-b0d924b58a86
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Top Order Share %' = DIVIDE ( [Top Order Value], [Revenue] )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 02. Time
 		lineageTag: 03f065a2-9fad-4c38-ba81-65d68e736a32
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Best Month' =
 			
@@ -109,28 +109,28 @@ table _measures
 		lineageTag: 021891c6-d17f-44f6-82ed-84a12df91415
 
 	measure Target = SUM ( fact_targets_monthly[monthly_target] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 03. Targets
 		lineageTag: 957f5bf5-85db-4f40-b296-6b9c28d7e14b
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Target YTD' = TOTALYTD ( [Target], dim_date[date] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 03. Targets
 		lineageTag: e8447cd2-7ff9-40da-95db-678e12b57305
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Attainment %' = DIVIDE ( [Revenue], [Target] )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 03. Targets
 		lineageTag: 2de1ddb2-5263-4061-a73e-cd235eb7b5fb
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Target Gap' = [Revenue] - [Target]
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 03. Targets
 		lineageTag: 753f61fd-3bf3-441d-ac64-cafbd2d4d6b2
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Attainment Color' =
 			
@@ -154,16 +154,16 @@ table _measures
 		lineageTag: 0cc5fbbc-bcef-47a0-803c-dbc0e26ccb4a
 
 	measure 'Target (active months)' = CALCULATE ( [Target], fact_targets_monthly[has_orders] = TRUE () )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 03. Targets
 		lineageTag: fc9c6953-9c70-4968-99f1-80996196f750
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Attainment % (active months)' = DIVIDE ( [Revenue], [Target (active months)] )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 03. Targets
 		lineageTag: 465679dc-d128-43b9-9149-dba4961b65ee
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Order Lines' = COUNTROWS ( fact_order_items )
 		formatString: 0
@@ -176,10 +176,10 @@ table _measures
 		lineageTag: 36b288ee-cbf6-45a2-b1af-5049aebcbe38
 
 	measure 'Penetration %' = DIVIDE ( [Orders with Product], [Orders] )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 04. Product
 		lineageTag: f69c34ff-1b73-4434-8a7b-ba4dc65533e3
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'SKUs Sold' = DISTINCTCOUNT ( fact_order_items[item_id] )
 		formatString: 0
@@ -187,10 +187,10 @@ table _measures
 		lineageTag: 8f855d00-21d2-4d2a-b898-586e014dd849
 
 	measure 'Catalog Coverage %' = DIVIDE ( [SKUs Sold], COUNTROWS ( dim_product ) )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 04. Product
 		lineageTag: 55aa4c21-61d5-44d8-a4c0-6841c8383049
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'SKUs without Sales' = COUNTROWS ( dim_product ) - [SKUs Sold]
 		formatString: 0
@@ -198,16 +198,16 @@ table _measures
 		lineageTag: 3310fd0c-142a-4ead-93c7-9cae5f0fcd01
 
 	measure 'Items per Order' = DIVIDE ( [Order Lines], [Orders with Product] )
+		formatString: #,0.0
 		displayFolder: 04. Product
 		lineageTag: 1b9615b6-32c3-4033-a9f7-bde06da39940
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Allocated Revenue (est.)' = SUM ( fact_order_items[allocated_revenue_est] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 04. Product
 		lineageTag: 3905d15f-b387-4d0f-b67a-15b656cc698f
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Product Rank (est.)' =
 			
@@ -219,10 +219,10 @@ table _measures
 	measure 'Top 5 Revenue (est.)' =
 			
 			IF ( [Product Rank (est.)] <= 5, [Allocated Revenue (est.)] )
+		formatString: "R$"#,0;-"R$"#,0;"R$"#,0
 		displayFolder: 04. Product
 		lineageTag: d892a8eb-824d-4ee6-9f20-a32c6c4bf8cc
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Cumulative Lines %' =
 			
@@ -235,10 +235,10 @@ table _measures
 			        dim_product[lines_rank] <= currentRank
 			    )
 			RETURN DIVIDE ( cumLines, totalLines )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 04. Product
 		lineageTag: c40d911b-1731-4a58-a4b6-f9378322b5a9
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Basket Orders %' =
 			
@@ -246,10 +246,10 @@ table _measures
 			    [Orders],
 			    CALCULATE ( [Orders], REMOVEFILTERS ( fact_orders[basket_size], fact_orders[basket_size_order] ) )
 			)
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 04. Product
 		lineageTag: ec3d9769-3e47-48db-9be3-93d5cc456714
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Basket Revenue %' =
 			
@@ -257,37 +257,37 @@ table _measures
 			    [Revenue],
 			    CALCULATE ( [Revenue], REMOVEFILTERS ( fact_orders[basket_size], fact_orders[basket_size_order] ) )
 			)
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 04. Product
 		lineageTag: 90ce5995-e250-4c1d-807d-c952c0468e85
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure '% of Total Revenue' = DIVIDE ( [Revenue], CALCULATE ( [Revenue], REMOVEFILTERS ( dim_customer ) ) )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 05. Customer
 		lineageTag: f9827cde-55ab-4ce3-97fa-7646b63c9972
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Top 2 Concentration %' =
 			
 			VAR top2 =
 			    CALCULATE ( [Revenue], TOPN ( 2, ALLSELECTED ( dim_customer[user_id] ), [Revenue], DESC ) )
 			RETURN DIVIDE ( top2, CALCULATE ( [Revenue], ALLSELECTED ( dim_customer ) ) )
+		formatString: 0.0%;-0.0%;0.0%
 		displayFolder: 05. Customer
 		lineageTag: e211ea77-ac95-4bff-9337-d233d4eecbc6
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Orders per Month' = DIVIDE ( [Orders], DISTINCTCOUNT ( dim_date[month_start] ) )
+		formatString: #,0.0
 		displayFolder: 05. Customer
 		lineageTag: 801e7c45-9591-42fa-a836-7c9047470b42
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Last Purchase' =
 			
 			LOOKUPVALUE ( dim_date[date], dim_date[date_key], MAX ( fact_orders[date_key] ) )
-		formatString: General Date
+		formatString: dd/mm/yyyy
 		displayFolder: 05. Customer
 		lineageTag: d95abd2d-019e-450f-8304-bfacc4cf7515
 
