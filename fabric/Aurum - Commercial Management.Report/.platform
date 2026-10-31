@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Aurum - Commercial Management"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ecbf0b6b-47cb-8a5f-4d23-62cb3e24d6ea"
+  }
+}
