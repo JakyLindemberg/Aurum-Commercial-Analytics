@@ -76,9 +76,10 @@ table _measures
 			)
 			
 			```
-		formatStringDefinition = IF ( SELECTEDVALUE ( param_view_mode[mode_name] ) = "% of period", "0.0%", """R$""#,0" )
 		displayFolder: 02. Time
 		lineageTag: 6c5feaa0-9c44-4ca2-8d13-e3fd1f01f6ef
+
+		formatStringDefinition = IF ( SELECTEDVALUE ( param_view_mode[mode_name] ) = "% of period", "0.0%", """R$""#,0" )
 
 
 	measure 'Top Order Value' = MAX ( fact_orders[revenue] )
