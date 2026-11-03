@@ -5,7 +5,10 @@
 </p>
 
 <p align="center">
-  <img src="docs/img/aurum-logo.png" alt="aurum" width="260">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/img/aurum-logo-white.png">
+    <img src="docs/img/aurum-logo.png" alt="aurum" width="260">
+  </picture>
 </p>
 
 <h1 align="center">Aurum — Commercial Analytics</h1>
